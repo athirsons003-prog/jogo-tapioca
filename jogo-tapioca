@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Tapioca</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #f5f5f5, #c8e6c9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  width: 90%;
+  max-width: 600px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  text-align: center;
+  position: relative;
+}
+
+button {
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: 12px;
+  background: #a5d6a7;
+  font-weight: 600;
+  border: 3px solid #388e3c;
+}
+
+.start {
+  background: #66bb6a;
+  color: white;
+}
+
+.barra {
+  height: 8px;
+  background: #eeeeee;
+}
+
+.progresso {
+  height: 100%;
+  background: #66bb6a;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container tela ativa" id="menu">
+  <h1>🥞 Tapioca</h1>
+  <p>Descubra os segredos da goma!</p>
+  <button class="start" onclick="iniciarJogo()">▶ Start</button>
+</div>
+
+<div class="container tela" id="jogo">
+
+<div class="barra"><div class="progresso" id="progresso"></div></div>
+
+<div class="tela ativa" id="tela1">
+  <h1>Vamos lá!</h1>
+  <button onclick="proximaTela()">Começar</button>
+</div>
+
+<div class="tela" id="tela2">
+  <h2>A tapioca vem de qual alimento?</h2>
+  <button onclick="responder(true)">Mandioca</button>
+  <button onclick="responder(false)">Milho</button>
+  <button onclick="responder(false)">Trigo</button>
+</div>
+
+<div class="tela" id="tela3">
+  <h2>A goma de tapioca é:</h2>
+  <button onclick="responder(true)">Amido hidratado</button>
+  <button onclick="responder(false)">Farinha seca</button>
+  <button onclick="responder(false)">Líquido puro</button>
+</div>
+
+<div class="tela" id="tela4">
+  <h2>Como ela é preparada?</h2>
+  <button onclick="responder(true)">Espalhada na frigideira quente</button>
+  <button onclick="responder(false)">Fervida em água</button>
+  <button onclick="responder(false)">Assada no forno</button>
+</div>
+
+<div class="tela" id="tela5">
+  <h2>O que acontece com a goma no calor?</h2>
+  <button onclick="responder(true)">Se une formando massa</button>
+  <button onclick="responder(false)">Evapora totalmente</button>
+  <button onclick="responder(false)">Fica líquida</button>
+</div>
+
+<div class="tela" id="tela6">
+  <h2>Origem da tapioca:</h2>
+  <button onclick="responder(true)">Indígena</button>
+  <button onclick="responder(false)">Europeia</button>
+  <button onclick="responder(false)">Africana</button>
+</div>
+
+<div class="tela" id="tela7">
+  <h2>Ela pode ser:</h2>
+  <button onclick="responder(true)">Doce ou salgada</button>
+  <button onclick="responder(false)">Apenas doce</button>
+  <button onclick="responder(false)">Apenas salgada</button>
+</div>
+
+<div class="tela" id="tela8">
+  <h2>O que dá estrutura?</h2>
+  <button onclick="responder(true)">Amido gelatinizado</button>
+  <button onclick="responder(false)">Água fria</button>
+  <button onclick="responder(false)">Ar</button>
+</div>
+
+<div class="tela" id="tela9">
+  <h2>Qual utensílio é usado?</h2>
+  <button onclick="responder(true)">Frigideira</button>
+  <button onclick="responder(false)">Panela de pressão</button>
+  <button onclick="responder(false)">Liquidificador</button>
+</div>
+
+<div class="tela" id="tela10">
+  <h1>🎉 Resultado</h1>
+  <p id="resultado"></p>
+  <button onclick="reiniciarJogo()">🏠 Reiniciar</button>
+</div>
+
+</div>
+
+<script>
+let telaAtual = 1;
+let pontuacao = 0;
+let totalTelas = 10;
+
+function iniciarJogo() {
+  document.getElementById("menu").classList.remove("ativa");
+  document.getElementById("jogo").classList.add("ativa");
+  atualizarBarra();
+}
+
+function atualizarBarra() {
+  let progresso = ((telaAtual - 1) / (totalTelas - 1)) * 100;
+  document.getElementById("progresso").style.width = progresso + "%";
+}
+
+function proximaTela() {
+  document.getElementById("tela" + telaAtual).classList.remove("ativa");
+  telaAtual++;
+  document.getElementById("tela" + telaAtual).classList.add("ativa");
+
+  if (telaAtual === 10) {
+    document.getElementById("resultado").innerText =
+      "Você fez " + pontuacao + " pontos!";
+  }
+}
+
+function responder(correta) {
+  if (correta) pontuacao++;
+  proximaTela();
+}
+
+function reiniciarJogo() {
+  location.reload();
+}
+</script>
+
+</body>
+</html>
